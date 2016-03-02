@@ -1,15 +1,34 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+ * ]"To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package servreproject;
+import ServerConnection.serverConnect;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import UserAction.Signin;
+import ServerConnection.server;
 
 /**
  *
  * @author dnegm
  */
 public class HomeServer extends javax.swing.JFrame {
+    Socket s;
+    ServerSocket Sv;
+    int i=0;
+    DataInputStream dis;
+     PrintStream ps;
+    serverConnect  con;
+    server recieve;
+    boolean checkdate;
 
     /**
      * Creates new form HomeServer
@@ -27,19 +46,6 @@ public class HomeServer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        up1 = new javax.swing.JPanel();
-        mainManu1 = new javax.swing.JButton();
-        mainManu5 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        down1 = new javax.swing.JPanel();
-        listFrend3 = new javax.swing.JButton();
-        listFrend4 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        center1 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         page1 = new javax.swing.JPanel();
         up = new javax.swing.JPanel();
         mainManu = new javax.swing.JButton();
@@ -53,9 +59,178 @@ public class HomeServer extends javax.swing.JFrame {
         close = new javax.swing.JButton();
         start = new javax.swing.JButton();
         listFrend = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        up1 = new javax.swing.JPanel();
+        mainManu1 = new javax.swing.JButton();
+        mainManu5 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        down1 = new javax.swing.JPanel();
+        listFrend3 = new javax.swing.JButton();
+        listFrend4 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        center1 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
+
+        page1.setBackground(new java.awt.Color(14, 25, 121));
+        page1.setLayout(new java.awt.BorderLayout());
+
+        up.setBackground(new java.awt.Color(37, 21, 123));
+        up.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        mainManu.setFont(new java.awt.Font("DejaVu Serif", 1, 14)); // NOI18N
+        mainManu.setForeground(new java.awt.Color(29, 43, 138));
+        mainManu.setText("Home Server");
+        mainManu.setActionCommand("Home Server ");
+
+        mainManu4.setFont(new java.awt.Font("DejaVu Serif", 1, 14)); // NOI18N
+        mainManu4.setForeground(new java.awt.Color(29, 43, 138));
+        mainManu4.setText("Log");
+        mainManu4.setActionCommand("Home Server ");
+
+        javax.swing.GroupLayout upLayout = new javax.swing.GroupLayout(up);
+        up.setLayout(upLayout);
+        upLayout.setHorizontalGroup(
+            upLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(upLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(mainManu, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(mainManu4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(272, Short.MAX_VALUE))
+        );
+        upLayout.setVerticalGroup(
+            upLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addGroup(upLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mainManu)
+                    .addComponent(mainManu4))
+                .addGap(28, 28, 28))
+        );
+
+        page1.add(up, java.awt.BorderLayout.PAGE_START);
+
+        down.setBackground(new java.awt.Color(37, 21, 123));
+        down.setBorder(null);
+
+        listFrend1.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
+        listFrend1.setForeground(new java.awt.Color(29, 43, 138));
+        listFrend1.setText("Hide");
+        listFrend1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listFrend1ActionPerformed(evt);
+            }
+        });
+
+        listFrend2.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
+        listFrend2.setForeground(new java.awt.Color(29, 43, 138));
+        listFrend2.setText("Exit");
+        listFrend2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listFrend2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout downLayout = new javax.swing.GroupLayout(down);
+        down.setLayout(downLayout);
+        downLayout.setHorizontalGroup(
+            downLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, downLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(listFrend1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
+                .addComponent(listFrend2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
+        );
+        downLayout.setVerticalGroup(
+            downLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, downLayout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE)
+                .addGroup(downLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(listFrend1)
+                    .addComponent(listFrend2))
+                .addContainerGap())
+        );
+
+        page1.add(down, java.awt.BorderLayout.PAGE_END);
+
+        center.setBackground(new java.awt.Color(37, 21, 123));
+
+        jLabel1.setFont(new java.awt.Font("DejaVu Serif", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(222, 237, 240));
+        jLabel1.setText("Ip Server : :");
+
+        ipnumber.setText("172,0,0,1");
+
+        close.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
+        close.setForeground(new java.awt.Color(29, 43, 138));
+        close.setText("Stope Server");
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
+            }
+        });
+
+        start.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
+        start.setForeground(new java.awt.Color(29, 43, 138));
+        start.setText("Start Server");
+        start.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                startMouseClicked(evt);
+            }
+        });
+        start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                startActionPerformed(evt);
+            }
+        });
+
+        listFrend.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
+        listFrend.setForeground(new java.awt.Color(29, 43, 138));
+        listFrend.setText("Users Stautse");
+
+        javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
+        center.setLayout(centerLayout);
+        centerLayout.setHorizontalGroup(
+            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, centerLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
+                .addComponent(ipnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
+            .addGroup(centerLayout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addGroup(centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(listFrend, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        centerLayout.setVerticalGroup(
+            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(centerLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ipnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(listFrend, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(176, Short.MAX_VALUE))
+        );
+
+        page1.add(center, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(page1, "card2");
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
@@ -242,147 +417,6 @@ public class HomeServer extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, "card3");
 
-        page1.setBackground(new java.awt.Color(14, 25, 121));
-        page1.setLayout(new java.awt.BorderLayout());
-
-        up.setBackground(new java.awt.Color(37, 21, 123));
-        up.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        mainManu.setFont(new java.awt.Font("DejaVu Serif", 1, 14)); // NOI18N
-        mainManu.setForeground(new java.awt.Color(29, 43, 138));
-        mainManu.setText("Home Server");
-        mainManu.setActionCommand("Home Server ");
-
-        mainManu4.setFont(new java.awt.Font("DejaVu Serif", 1, 14)); // NOI18N
-        mainManu4.setForeground(new java.awt.Color(29, 43, 138));
-        mainManu4.setText("Log");
-        mainManu4.setActionCommand("Home Server ");
-
-        javax.swing.GroupLayout upLayout = new javax.swing.GroupLayout(up);
-        up.setLayout(upLayout);
-        upLayout.setHorizontalGroup(
-            upLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(upLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(mainManu, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainManu4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
-        );
-        upLayout.setVerticalGroup(
-            upLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, upLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(upLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(mainManu)
-                    .addComponent(mainManu4))
-                .addGap(28, 28, 28))
-        );
-
-        page1.add(up, java.awt.BorderLayout.PAGE_START);
-
-        down.setBackground(new java.awt.Color(37, 21, 123));
-        down.setBorder(null);
-
-        listFrend1.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
-        listFrend1.setForeground(new java.awt.Color(29, 43, 138));
-        listFrend1.setText("Hide");
-        listFrend1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listFrend1ActionPerformed(evt);
-            }
-        });
-
-        listFrend2.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
-        listFrend2.setForeground(new java.awt.Color(29, 43, 138));
-        listFrend2.setText("Exit");
-        listFrend2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listFrend2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout downLayout = new javax.swing.GroupLayout(down);
-        down.setLayout(downLayout);
-        downLayout.setHorizontalGroup(
-            downLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, downLayout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(listFrend1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
-                .addComponent(listFrend2, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
-        downLayout.setVerticalGroup(
-            downLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, downLayout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
-                .addGroup(downLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(listFrend1)
-                    .addComponent(listFrend2))
-                .addContainerGap())
-        );
-
-        page1.add(down, java.awt.BorderLayout.PAGE_END);
-
-        center.setBackground(new java.awt.Color(37, 21, 123));
-
-        jLabel1.setFont(new java.awt.Font("DejaVu Serif", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(222, 237, 240));
-        jLabel1.setText("Ip Server : :");
-
-        ipnumber.setText("172,0,0,1");
-
-        close.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
-        close.setForeground(new java.awt.Color(29, 43, 138));
-        close.setText("Stope Server");
-
-        start.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
-        start.setForeground(new java.awt.Color(29, 43, 138));
-        start.setText("Start Server");
-
-        listFrend.setFont(new java.awt.Font("DejaVu Serif", 0, 14)); // NOI18N
-        listFrend.setForeground(new java.awt.Color(29, 43, 138));
-        listFrend.setText("Users Stautse");
-
-        javax.swing.GroupLayout centerLayout = new javax.swing.GroupLayout(center);
-        center.setLayout(centerLayout);
-        centerLayout.setHorizontalGroup(
-            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, centerLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ipnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(124, 124, 124))
-            .addGroup(centerLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addGroup(centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(listFrend, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        centerLayout.setVerticalGroup(
-            centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(centerLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(centerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ipnumber, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addComponent(start, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(close, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(listFrend, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(176, Short.MAX_VALUE))
-        );
-
-        page1.add(center, java.awt.BorderLayout.CENTER);
-
-        getContentPane().add(page1, "card2");
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -401,6 +435,62 @@ public class HomeServer extends javax.swing.JFrame {
     private void listFrend4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listFrend4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_listFrend4ActionPerformed
+
+    private void startMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_startMouseClicked
+
+                                         
+            
+        try {
+            con=new serverConnect();
+            // TODO add your handling code here:
+            Sv=con.connect();
+            while(true){
+            s = Sv.accept();
+            recieve=new server(s);
+            }
+           // System.out.println(s);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(HomeServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+        
+       
+    }//GEN-LAST:event_startMouseClicked
+
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+        // TODO add your handling code here:
+        if(i==1){
+           // sv=new serverConnect();// TODO add your handling code here:
+            con.disconnect();
+      }
+        else{
+        
+            JOptionPane.showConfirmDialog(null, "you must first start Server");
+        
+        }
+    }//GEN-LAST:event_closeMouseClicked
+
+    private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
+        // TODO add your handling code here:
+         con=new serverConnect();
+      // TODO add your handling code here:
+      /*  Sv=con.connect();
+        System.out.println(s);
+        try {
+            ps = new PrintStream(s.getOutputStream ());
+            String msg = dis.readLine();
+            System.out.println(msg);
+            ps.println("Data Received");
+        } catch (IOException ex) {
+            Logger.getLogger(HomeServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        i=1;*/
+        
+        
+    }//GEN-LAST:event_startActionPerformed
 
     /**
      * @param args the command line arguments
