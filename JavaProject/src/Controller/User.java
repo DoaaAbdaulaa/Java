@@ -56,6 +56,7 @@ public class User {
           this.pic=pic;
           this.phone=phone;
          // this.status=status;
+         System.out.println(email);
           
 }
    //////////////// get and set frist name ////////////////
@@ -132,11 +133,12 @@ public class User {
     
    ///////////////////////////Validation Function ////////////////////////////////////// 
     public boolean validation(){
-        
+        System.out.println(email);
     checkmail=validEmail(email);
     checkpass=validpassword(password);
-    if(fristName.equals("")&&lastName.equals("")&&birthday.equals("")&&gender.equals("")&&checkmail&&checkpass && country.equals("")&&phone.equals("") ){
-    return false;
+        System.out.println(checkpass);
+    if((fristName.equals("")&&lastName.equals("")&&birthday.equals("")&&gender.equals("")&&!checkmail&&!checkpass && country.equals("")&&phone.equals("") )){  
+        return false;
     
   }
     else{
@@ -145,24 +147,7 @@ public class User {
     
     }    
  
-    
-    
-    
-      
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    }
+   }
     
  
     public boolean validEmail(String Email){
